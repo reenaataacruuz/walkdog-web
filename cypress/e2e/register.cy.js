@@ -1,28 +1,51 @@
+import registerPage from "../support/pages/register"
+import homePage from "../support/pages/home"
+import textsModal from '../support/components/Modal'
+
 describe('Realizando cadastro para cuidar de pets', () => {
-  
+    
     beforeEach(() => {
       cy.visit('/')
-      cy.contains('a', 'Quero ser Dog Walker').click()
+      homePage.startRegister()
     })
   
     it('Cadastro para *Cuidar* de Pet', () => {
-      cy.get('[name="name"]').type('Nome pets')
-      cy.get('[name="email"]').type('petts@gmail.com')
-      cy.get('[name="cpf"]').type('01234567890')
-      cy.get('[name="cep"]').type('60181650')
-      cy.get('[value="Buscar CEP"]').click()
-      cy.get('[name="addressNumber"]').type('10')
-      cy.get('span:contains("Cuidar")').click()
+        registerPage.addName('Nome pets')
+        registerPage.addEmail('petts@gmail.com')
+        registerPage.addCpf('01234567890')
+        registerPage.addCep('60181650')
+        registerPage.addAddressNumber('10')
+        registerPage.addActivity('cuidar')
+        registerPage.addDocument('cypress/fixtures/hamster.jpg')
+        registerPage.finallyRegister()
+        textsModal.verifyMessagesModal('success')
+        registerPage.backPage()
+    })
 
-      const image = 'hamster.jpg'
-      console.log("imagem", image);
-      cy.get('input[type="file"]').selectFile(image)
-    //   cy.fixture(image).then(fileContent => {
-    //     cy.get('input[type="file"]')
-    //     .attachFile({ fileContent, fileName: 'hamster.jpg', mimeType: 'image/jpeg' })
-    //   })
+    it('Cadastro para *Adestrar* de Pet', () => {
+        registerPage.addName('Nome pets')
+        registerPage.addEmail('petts@gmail.com')
+        registerPage.addCpf('01234567890')
+        registerPage.addCep('60181650')
+        registerPage.addAddressNumber('10')
+        registerPage.addActivity('adestrar')
+        registerPage.addDocument('cypress/fixtures/hamster.jpg')
+        registerPage.finallyRegister()
+        textsModal.verifyMessagesModal('success')
+        registerPage.backPage()
+    })
 
-      
-    //   cy.get('[accept="image/*"]').selectFile('../fixtures/hamster.jpg')
+    it('Cadastro para *Cuidar* e *Adestrar* de Pet', () => {
+        registerPage.addName('Nome pets')
+        registerPage.addEmail('petts@gmail.com')
+        registerPage.addCpf('01234567890')
+        registerPage.addCep('60181650')
+        registerPage.addAddressNumber('10')
+        registerPage.addActivity('cuidar')
+        registerPage.addActivity('adestrar')
+        registerPage.addDocument('cypress/fixtures/hamster.jpg')
+        registerPage.finallyRegister()
+        textsModal.verifyMessagesModal('success')
+        registerPage.backPage()
     })
 })
