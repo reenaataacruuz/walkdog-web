@@ -44,7 +44,6 @@ class registerPage {
     backPage(){
         cy.get('button:contains("Voltar")').click()
     }
-
 }
 
 export default new registerPage()
